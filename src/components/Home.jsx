@@ -1,6 +1,6 @@
 import React from "react";
 import Social from "./Social";
-import Typed from 'react-typed';
+// import Typed from 'react-typed';
 
 const Home = () => {
   return (
@@ -20,7 +20,7 @@ const Home = () => {
           <div className="details">
             <h3 className="name">Anupama Dilshan</h3>
             <h4 className="typer">
-              <Typed
+              {/* <Typed
                 strings={[
                   "Frontend Developer",
                   "Backend Developer",
@@ -30,7 +30,7 @@ const Home = () => {
                 ]}
                 loop
                 typeSpeed={80}
-              />
+              /> */}
             </h4>
             <p className="job">
             Experienced Software Developer based in Adelaide, with a willingness to collaborate on projects worldwide, particularly in Australia, leveraging my expertise in crafting innovative software solutions
