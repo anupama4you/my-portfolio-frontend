@@ -3,7 +3,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-const Testimonial = () => {
+const Testimonial = ({settestimonialData}) => {
   const [testimonials, setTestimonials] = useState([]);
 
   var settings = {
@@ -33,7 +33,7 @@ const Testimonial = () => {
   const fetchData = async () => {
     try {
       const response = await fetch(
-        "${process.env.REACT_APP_API_URL}/api/testimonials?populate=*",
+        `${process.env.REACT_APP_API_URL}/api/testimonials?populate=*`,
         {
           headers: {
             Authorization:
@@ -53,8 +53,11 @@ const Testimonial = () => {
 
   useEffect(() => {
     fetchData().then((data) => {
-      setTestimonials(data["data"]);
-      console.log(testimonials);
+      if (data && data['data']) {
+        setTestimonials(data["data"]);
+        settestimonialData(true);
+      }
+      
     });
   }, []);
 

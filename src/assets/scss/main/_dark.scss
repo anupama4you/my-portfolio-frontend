@@ -346,8 +346,9 @@ body.dark {
 }
 
 .tokyo_tm_modalbox_news .modal-image {
-  max-width: 100px; /* Adjust the width as needed */
+  max-width: 48%; /* Adjust the width as needed */
   height: auto;
+  display: flex;
 }
 
 
@@ -451,5 +452,18 @@ body.dark .tokyo_tm_pricing .popular {
 
 body.dark .tokyo_tm_testimonials{
   background-color:#000;
+}
+
+body.dark .loader-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #000; /* Light background */
+  z-index: 1000; /* High z-index to cover other content */
 }
 

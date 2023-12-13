@@ -18,16 +18,7 @@ const NotFound = () => {
             </div>
             {/* END LOGO */}
             <div className="copyright">
-              <p>
-                &copy; 2021 Tokyo <br /> Created by
-                <a
-                  href="https://themeforest.net/user/ib-themes"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Ib-Themes
-                </a>
-              </p>
+            
             </div>
             {/* END COPYRIGHT */}
           </div>

@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
 import Social from "../Social";
 import ReactMarkdown from 'react-markdown';
+import { RotatingLines } from "react-loader-spinner";
 
 Modal.setAppElement("#root");
 
-const Services = () => {
+const Services = ({setservicesData}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [services, setServices] = useState([]);
   const [currentArticle, setCurrentArticle] = useState(null);
@@ -29,7 +30,10 @@ const Services = () => {
 
   useEffect(() => {
     fetchData().then(data => {
-      setServices(data['data']);
+      if (data && data['data']) {
+        setServices(data['data']);
+        setservicesData(true);
+      }
     });
   }, []);  
 

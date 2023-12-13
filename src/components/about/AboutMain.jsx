@@ -31,7 +31,7 @@ const AboutMain = () => {
           {/* End personal info */}
 
           <div className="tokyo_tm_button" data-position="left">
-          <a href="assets/img/cv.pdf" download>
+          <a href="https://drive.google.com/file/d/1uCW1O5AaBF5Bd7-65LcSM5kMsXh9DrJG/view?usp=sharing" target="_tab" download>
               <span>Download CV</span>
             </a>
           </div>

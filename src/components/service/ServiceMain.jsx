@@ -1,11 +1,15 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import FunFact from "./FunFact";
 import Partners from "./Partners";
 import Pricing from "./Pricing";
 import Services from "./Services";
 import Testimonial from "../about/Testimonial";
+import { RotatingLines } from "react-loader-spinner";
 
 const ServiceMain = () => {
+  const [servicesData, setservicesData] = useState(false);
+  const [testimonialData, settestimonialData] = useState(false);
+
   return (
     <>
       {/* SERVICE */}
@@ -22,11 +26,26 @@ const ServiceMain = () => {
           </div>
           {/* End tokyo_tm_title */}
 
-          <div className="list">
-            <ul>
-              <Services />
-            </ul>
+          <div className="center-spinner">
+          {
+            !servicesData && (
+              <RotatingLines
+                strokeColor="grey"
+                strokeWidth="5"
+                animationDuration="0.75"
+                width="300"
+                visible={true}
+              />
+            )
+          }
           </div>
+
+          <div className="list">
+              <ul>
+                <Services setservicesData={setservicesData} />
+              </ul>
+          </div>
+          
           {/* End list */}
         </div>
       </div>
@@ -51,8 +70,21 @@ const ServiceMain = () => {
           <div className="tokyo_section_title">
             <h3>Testimonials</h3>
           </div>
+          <div className="center-spinner">
+          {
+            !testimonialData && (
+              <RotatingLines
+                strokeColor="grey"
+                strokeWidth="5"
+                animationDuration="0.75"
+                width="300"
+                visible={true}
+              />
+            )
+          }
+          </div>
           <div className="list">
-            <Testimonial />
+            <Testimonial settestimonialData={settestimonialData} />
           </div>
         </div>
       </div>

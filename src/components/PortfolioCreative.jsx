@@ -6,12 +6,14 @@ import ModalVideo from "react-modal-video";
 import Modal from "react-modal";
 import Social from "./Social";
 import ReactMarkdown from 'react-markdown';
+import { RotatingLines } from "react-loader-spinner";
 
 const Portfolio = () => {
   const [projects, setProjects] = useState([]);
   const [currentArticle, setCurrentArticle] = useState(null);
   const [images, setImages] = useState([]);
   const [activeCategory, setActiveCategory] = useState('All');
+  const [projectsLoaded, setprojectsLoaded] = useState(false);
 
   // for popup video for youtube
   const [isOpen, setOpen] = useState(false);
@@ -37,7 +39,7 @@ const Portfolio = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch('${process.env.REACT_APP_API_URL}/api/projects?populate=*', {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/projects?populate=*`, {
         headers: {
           'Authorization': `Bearer ${process.env.REACT_APP_API_TOKEN}`
         }
@@ -54,7 +56,10 @@ const Portfolio = () => {
 
   useEffect(() => {
     fetchData().then(data => {
-      setProjects(data['data']);
+      if (data && data['data']) {
+        setProjects(data['data']);
+        setprojectsLoaded(true)
+      }
     });
   }, []);  
 
@@ -73,8 +78,6 @@ const Portfolio = () => {
   const filteredProjects = projectsContent.filter((item) => {
     return activeCategory === 'All' || item.category.includes(activeCategory);
   });
-
-  console.log(filteredProjects)
 
   function toggleModal(e, article, images) {
     setOpen(!isOpen);
@@ -100,6 +103,18 @@ const Portfolio = () => {
             </div>
             {/* END TOKYO_TM_TITLE */}
 
+            {
+            !projectsLoaded && (
+              <RotatingLines
+                strokeColor="grey"
+                strokeWidth="5"
+                animationDuration="0.75"
+                width="300"
+                visible={true}
+              />
+            )
+          }
+
             <div className="portfolio_filter">
               <Tabs>
               <TabList>
@@ -120,11 +135,12 @@ const Portfolio = () => {
                         <div className="inner">
                           <div className="entry tokyo_tm_portfolio_animation_wrap">
                             <img
-                              src={`${process.env.REACT_APP_API_URL}${item.image.data.attributes.url}`} // Replace with actual image URL if available
+                              src={`${process.env.REACT_APP_API_URL}${item.image.data.attributes.url}`} 
                               alt={item.title}
                               data-tip
                               data-for={`tooltip-${index}`}
-                              onClick={(e) => toggleModal(e, item.details, item.images)} // Adjust onClick event as needed
+                              loading="lazy"
+                              onClick={(e) => toggleModal(e, item.details, item.images)} 
                             />
                             <ReactTooltip
                               id={`tooltip-${index}`}
@@ -182,7 +198,7 @@ const Portfolio = () => {
                             </ReactMarkdown>
                             <br/>
                                             {/* START IMAGE CONTAINER */}
-                                            <div className="image-container">
+                            <div className="image-container">
                               {images && images.map(image => (
                                 <img
                                   key={image.id}

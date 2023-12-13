@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
 import Social from "./Social";
+import { RotatingLines } from "react-loader-spinner";
 
 Modal.setAppElement("#root");
 
@@ -13,6 +14,7 @@ const News = () => {
   const [visibleItems, setVisibleItems] = useState(10); 
   const increment = 10;
   const [news, setnews] = useState({ articles: [] }); 
+  const [newsLoaded, setnewsLoaded] = useState(false);
 
   const loadMoreItems = () => {
     setVisibleItems((prevVisibleItems) => prevVisibleItems + increment);
@@ -60,7 +62,10 @@ const News = () => {
 
   useEffect(() => {
     fetchData().then(data => {
-      setnews(data)
+      if (data) {
+        setnews(data)
+        setnewsLoaded(true)
+      }
     });
   }, []);  
 
@@ -77,6 +82,17 @@ const News = () => {
             </div>
           </div>
           {/* END TITLE */}
+          {
+            !newsLoaded && (
+              <RotatingLines
+                strokeColor="grey"
+                strokeWidth="5"
+                animationDuration="0.75"
+                width="300"
+                visible={true}
+              />
+            )
+          }
 
           <ul>
           {news && news.articles.slice(0, visibleItems).map((item, index) => (
