@@ -38,12 +38,12 @@ const News = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch('https://newsapi.org/v2/top-headlines?country=us&category=technology&apiKey=912dee6e614643a5994c9285a1e0469a');
+      const response = await fetch('https://gnews.io/api/v4/top-headlines?category=technology&lang=en&max=10&apikey=8218b441760ff3cd4b64dc88111a9bfb');
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
       const data = await response.json();
-      const filteredArticles = data.articles.filter(article => article.urlToImage != null);
+      const filteredArticles = data.articles.filter(article => article.image != null);
       return { ...data, articles: filteredArticles };
     } catch (error) {
       console.error('There was a problem with the fetch operation:', error);
@@ -104,7 +104,7 @@ const News = () => {
                   <div
                     className="main"
                     style={{
-                      backgroundImage: `url(${item.urlToImage})`,
+                      backgroundImage: `url(${item.image})`,
                     }}
                   ></div>
                 </div></a>
@@ -112,9 +112,9 @@ const News = () => {
                 <div className="details">
                   <div className="extra">
                     <p className="date">
-                    {item.author != null && (
+                    {item.source != null && (
                           <>
-                            By <a href="#">{item.author}</a>
+                            By <a href="#">{item.source.name}</a>
                           </>
                         )}
                       <span>{BlogTimestamp(item.publishedAt)}</span>
